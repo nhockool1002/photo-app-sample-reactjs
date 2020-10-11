@@ -1,0 +1,16 @@
+.header {
+    &__brand {
+        font-weight: bolder;
+    }
+
+    &__link {
+        color: red;
+        transition: all 0.25s ease-in-out 0s;
+
+        &--active,
+        &:hover {
+            text-decoration: none;
+            color: #000;
+        }
+    }
+}
