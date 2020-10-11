@@ -13,6 +13,7 @@ import { PHOTO_CATEGORY_OPTIONS } from '../../constant/global';
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
 import RandomPhotoField from 'custom-fields/RandomPhotoField';
+import * as Yup from 'yup';
 
 
 PhotoForm.propTypes = {
@@ -26,12 +27,19 @@ PhotoForm.defaultProps = {
 function PhotoForm(props) {
     const initialValues = {
         title: '',
-        category: null
+        categoryId: null,
+        photo: ''
     }
+
+    const validationSchema = Yup.object().shape({
+        title: Yup.string().required('This field is required'),
+        categoryId: Yup.number().required('This field is required').nullable(),
+        photo: Yup.string().required('This field is required'),
+    });
     return (
         <div className="photo-form">
             <br />
-            <Formik initialValues={initialValues}>
+            <Formik initialValues={initialValues} onSubmit={values => console.log('Submit', values)} validationSchema={validationSchema}>
                 {formikProps => {
                     const { values, errors, touched } = formikProps;
                     console.log({ values, errors, touched });
@@ -47,7 +55,7 @@ function PhotoForm(props) {
                                 </FastField>
 
                                 <FastField
-                                    name="category"
+                                    name="categoryId"
                                     component={SelectField}
                                     label="Category"
                                     placeholder="Ex: Choose photo for your photo .."
@@ -63,7 +71,7 @@ function PhotoForm(props) {
                                 </FastField>
 
                                 <FormGroup>
-                                    <Button color='primary'>Add to Album >></Button>
+                                    <Button type="submit" color='primary'>Add to Album >></Button>
                                 </FormGroup>
                             </Form>
                         </Container>
