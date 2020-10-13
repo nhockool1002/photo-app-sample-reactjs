@@ -30,6 +30,7 @@ function AddEdit(props) {
       dispatch(action);
     } else {
       const action = updatePhoto(values);
+      console.log("action", action);
       dispatch(action);
     }
     history.push("/photos");
